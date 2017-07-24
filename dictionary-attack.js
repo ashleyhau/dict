@@ -1,11 +1,39 @@
 var wordsList = [];
+var commonList = [];
+var commonFem = [];
+var commonMale = [];
+var commonLast = [];
 
 function init() {
   // Load the words from the dictionary text file to wordsList
   var wordsFile = "https://raw.githubusercontent.com/GirlsFirst/SIP-2017/master/Unit2_Applications/dictionary-attack/dictionary.txt?token=ADcVhZjRMd86ZdhPE2jVvIaJdQdzLA6Yks5YvvVSwA%3D%3D";
+  var commonFile = "https://raw.githubusercontent.com/ashleyhau/dict/master/commonpwd.txt";
+  var commonFemFile = "https://raw.githubusercontent.com/ashleyhau/dict/master/commonfemnames.txt"
+  var commonMaleFile = "https://raw.githubusercontent.com/ashleyhau/dict/master/commonmalenames.txt"
+  var commonLastFile = "https://raw.githubusercontent.com/ashleyhau/dict/master/commlastnames.txt"
   $.get(wordsFile, function(data) {
     document.getElementById("btnSubmit").disabled = true;
     wordsList = data.split('\n');
+    document.getElementById("btnSubmit").disabled = false;
+  });
+  $.get(commonFile, function(data) {
+    document.getElementById("btnSubmit").disabled = true;
+    commonList = data.split('\n');
+    document.getElementById("btnSubmit").disabled = false;
+  });
+  $.get(commonFemFile, function(data) {
+    document.getElementById("btnSubmit").disabled = true;
+    commonList = data.split('\n');
+    document.getElementById("btnSubmit").disabled = false;
+  });
+  $.get(commonMaleFile, function(data) {
+    document.getElementById("btnSubmit").disabled = true;
+    commonList = data.split('\n');
+    document.getElementById("btnSubmit").disabled = false;
+  });
+  $.get(commonLastFile, function(data) {
+    document.getElementById("btnSubmit").disabled = true;
+    commonList = data.split('\n');
     document.getElementById("btnSubmit").disabled = false;
   });
 }
@@ -22,7 +50,7 @@ function checkPassword() {
   //loop through all the words in the word list
   //earlier, words list was set to contain a list of english words
   for (var index = 0; index < wordsList.length; index++) {
-    //warn them if password matches a word from the list]
+    //warn them if password matches a word from the list
 
     if (wordsList[index] == input) {
       alert("Password is too weak! It's an English word.");
@@ -33,8 +61,44 @@ function checkPassword() {
     //matches their input
     //ex:wordsList[index] is 'hello', leetify(wordsList[index]) is 'h3ll0'
     if (leetify(wordsList[index]) == input ) {
-      alert("That is a week password! It's too close to " + wordsList[index]);
+      alert("Weak password! It's too close to " + wordsList[index]);
       return;
+    }
+  }
+
+  for (var index = 0; index < commonList.length; index++) {
+    //warn them if password matches a word from the list
+
+    if (commonList[index] == input) {
+      alert("Password is too weak! It's too common!");
+      return; //stop this function as soon as I find this match
+    }
+  }
+
+  for (var index = 0; index < commonFem.length; index++) {
+    //warn them if password matches a word from the list
+
+    if (commonList[index] == input) {
+      alert("Password is too weak! It's a name!");
+      return; //stop this function as soon as I find this match
+    }
+  }
+
+  for (var index = 0; index < commonMale.length; index++) {
+    //warn them if password matches a word from the list
+
+    if (commonList[index] == input) {
+      alert("Password is too weak! It's a name!");
+      return; //stop this function as soon as I find this match
+    }
+  }
+
+  for (var index = 0; index < commonLast.length; index++) {
+    //warn them if password matches a word from the list
+
+    if (commonList[index] == input) {
+      alert("Password is too weak! It's a name!");
+      return; //stop this function as soon as I find this match
     }
   }
 
